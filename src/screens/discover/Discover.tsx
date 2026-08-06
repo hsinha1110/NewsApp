@@ -5,15 +5,35 @@ import getStyles from './styles';
 import { useTheme } from '../../theme/useTheme';
 import { CATEGORIES, COUNTRIES } from '../../constants/categories';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AppButton from '../../components/Button/AppButton';
+import { useAppDispatch } from '../../redux/hooks/hooks';
+import { setFilters } from '../../redux/slices/filterSlice';
+import { useNavigation } from '@react-navigation/native';
+import Routes from '../../constants/Routes';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { BottomTabParamList } from '../../navigation/types';
 
 const Discover = () => {
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
-
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
   const [country, setCountry] = useState('India');
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+  const dispatch = useAppDispatch();
+  type NavigationProp = BottomTabNavigationProp<BottomTabParamList>;
 
+  const navigation = useNavigation<NavigationProp>();
+  const handleApply = () => {
+    dispatch(
+      setFilters({
+        search,
+        category,
+        country,
+      }),
+    );
+
+    navigation.navigate(Routes.HOME);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -66,10 +86,7 @@ const Discover = () => {
             </Pressable>
           ))}
         </View>
-
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Search</Text>
-        </Pressable>
+        <AppButton title="Apply" onPress={handleApply} />
       </ScrollView>
     </SafeAreaView>
   );

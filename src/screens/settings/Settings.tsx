@@ -15,7 +15,7 @@ import { moreItems } from '../../constants/categories';
 import ItemSettings from './ItemSettings';
 
 const Settings = () => {
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   const { theme, isDark, toggleTheme } = useTheme();
   const styles = getStyles(theme);
@@ -24,11 +24,6 @@ const Settings = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.heading}>Settings</Text>
-
-        {/* Preferences */}
-
-        <Text style={styles.section}>Preferences</Text>
-
         <View style={styles.card}>
           <ItemSettings
             styles={styles}
@@ -58,7 +53,6 @@ const Settings = () => {
             title="Language"
             value="English"
             rightIcon={<ChevronRightIcon size={18} color={theme.subText} />}
-            onPress={() => {}}
           />
         </View>
 

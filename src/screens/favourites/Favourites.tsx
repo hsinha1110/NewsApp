@@ -59,6 +59,7 @@ const Favourites = () => {
       <Text style={styles.heading}>Favourite News</Text>
 
       <FlatList
+        alwaysBounceVertical={false}
         data={favourites}
         keyExtractor={item => item.url}
         showsVerticalScrollIndicator={false}

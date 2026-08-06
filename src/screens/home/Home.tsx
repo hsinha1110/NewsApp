@@ -17,6 +17,7 @@ import getStyles from './styles';
 import HomeHeader from './HomeHeader';
 import ItemNews from './ItemNews';
 import { breadkingNewsThunk } from '../../redux/thunk/breakingNewsThunk';
+import { setFilters } from '../../redux/slices/filterSlice';
 
 type NavigationProp = NativeStackNavigationProp<MainStackParamList>;
 
@@ -30,16 +31,15 @@ const Home = () => {
   const styles = getStyles(theme);
 
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const { news, loading, error, totalResults } = useAppSelector(
     state => state.getNews,
   );
-
+  const { search, category, country } = useAppSelector(state => state.filter);
   const { favourites } = useAppSelector(state => state.favourite);
   const { breakingNews } = useAppSelector(state => state.breakingNews);
-
+  const [localSearch, setLocalSearch] = useState(search);
   const fetchNews = useCallback(
     (query: string, pageNumber: number) => {
       dispatch(
@@ -54,44 +54,61 @@ const Home = () => {
   );
 
   useEffect(() => {
-    fetchNews('india', 1);
+    const query =
+      search.trim() || (category !== 'All' ? category.toLowerCase() : 'india');
+
+    dispatch(
+      getNewsThunk({
+        q: query,
+        page: 1,
+        pageSize: PAGE_SIZE,
+      }),
+    );
 
     dispatch(
       breadkingNewsThunk({
-        country: 'us',
+        country: country === 'India' ? 'in' : 'us',
         page: 1,
         pageSize: 5,
       }),
     );
-  }, []);
+
+    setPage(1);
+  }, [search, category, country]);
+
   const handleSearch = () => {
-    const query = search.trim();
+    const query = localSearch.trim();
 
     if (!query) return;
 
-    setSelectedCategory(query);
-    setPage(1);
-
-    fetchNews(query, 1);
+    dispatch(
+      setFilters({
+        search: query,
+        category,
+        country,
+      }),
+    );
   };
-
   const handleCategoryPress = (category: string) => {
     setSelectedCategory(category);
     setPage(1);
 
     fetchNews(category.toLowerCase(), 1);
   };
-
   const loadMore = () => {
     if (loading || news.length >= totalResults) return;
 
     const nextPage = page + 1;
-
     setPage(nextPage);
 
-    fetchNews(selectedCategory.toLowerCase(), nextPage);
+    dispatch(
+      getNewsThunk({
+        q: search.trim() || (category !== 'All' ? category : 'india'),
+        page: nextPage,
+        pageSize: PAGE_SIZE,
+      }),
+    );
   };
-
   if (error) {
     return (
       <SafeAreaView style={styles.container}>
@@ -128,11 +145,11 @@ const Home = () => {
         onEndReachedThreshold={0.5}
         ListHeaderComponent={
           <HomeHeader
-            search={search}
-            setSearch={setSearch}
+            search={localSearch}
+            setSearch={setLocalSearch}
             handleSearch={handleSearch}
-            breakingNews={breakingNews}
             navigation={navigation}
+            breakingNews={breakingNews}
             selectedCategory={selectedCategory}
             onCategoryPress={handleCategoryPress}
             styles={styles}

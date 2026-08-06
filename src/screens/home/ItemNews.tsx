@@ -4,15 +4,7 @@ import { HeartIcon as HeartOutline } from 'react-native-heroicons/outline';
 import { HeartIcon as HeartSolid } from 'react-native-heroicons/solid';
 
 import { useTheme } from '../../theme/useTheme';
-import { NewsArticle } from '../../types';
-
-type Props = {
-  item: NewsArticle;
-  isFavourite: boolean;
-  styles: any;
-  onFavourite: () => void;
-  onPress: () => void;
-};
+import { ItemNewsProps } from '../../types';
 
 const ItemNews = ({
   item,
@@ -20,7 +12,7 @@ const ItemNews = ({
   styles,
   onFavourite,
   onPress,
-}: Props) => {
+}: ItemNewsProps) => {
   const { theme } = useTheme();
 
   return (
@@ -36,7 +28,12 @@ const ItemNews = ({
         <View style={styles.headerRow}>
           <Text style={styles.source}>{item.source?.name}</Text>
 
-          <Pressable onPress={onFavourite}>
+          <Pressable
+            onPress={event => {
+              event.stopPropagation();
+              onFavourite();
+            }}
+          >
             {isFavourite ? (
               <HeartSolid size={24} color={theme.primary} />
             ) : (

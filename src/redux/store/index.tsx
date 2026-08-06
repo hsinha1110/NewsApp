@@ -6,11 +6,13 @@ import getNewsReducer from '../slices/getNewsSlice';
 import favouriteReducer from '../slices/favouriteSlice';
 import breakingNewsReducer from '../slices/breakingNewsSlice';
 import themeReducer from '../slices/themeSlice';
+import filterReducer from '../slices/filterSlice';
 const rootReducer = combineReducers({
   getNews: getNewsReducer,
   favourite: favouriteReducer,
   breakingNews: breakingNewsReducer,
   theme: themeReducer,
+  filter: filterReducer,
 });
 
 const persistConfig = {

@@ -9,9 +9,9 @@ const getStyles = (theme: any) =>
     },
 
     heading: {
-      fontSize: moderateScale(28),
+      fontSize: moderateScale(30),
       fontWeight: '700',
-      margin: moderateScale(20),
+      margin: moderateScale(15),
       color: theme.text,
     },
 

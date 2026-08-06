@@ -1,3 +1,7 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { MainStackParamList } from './navigation/types';
+
+export type HomeNavigationProp = NativeStackNavigationProp<MainStackParamList>;
 export interface GetNewsParams {
   q?: string;
   country?: string;
@@ -37,4 +41,31 @@ export type ItemFavouriteProps = {
   item: any;
   styles: any;
   onRemove: () => void;
+};
+export type FilterState = {
+  search: string;
+  category: string;
+  country: string;
+};
+
+export type HomeHeaderProps = {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  handleSearch: () => void;
+
+  navigation: HomeNavigationProp;
+
+  breakingNews: NewsArticle[];
+  selectedCategory: string;
+  onCategoryPress: (category: string) => void;
+
+  styles: any;
+};
+
+export type ItemNewsProps = {
+  item: NewsArticle;
+  isFavourite: boolean;
+  styles: any;
+  onFavourite: () => void;
+  onPress: () => void;
 };
