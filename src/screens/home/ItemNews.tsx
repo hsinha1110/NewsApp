@@ -5,7 +5,7 @@ import { HeartIcon as HeartSolid } from 'react-native-heroicons/solid';
 
 import { useTheme } from '../../theme/useTheme';
 import { ItemNewsProps } from '../../types';
-
+import { timeAgo } from '../../utils/timeAgo';
 const ItemNews = ({
   item,
   isFavourite,
@@ -19,7 +19,8 @@ const ItemNews = ({
     <Pressable style={styles.card} onPress={onPress}>
       <Image
         source={{
-          uri: item.urlToImage || 'https://via.placeholder.com/600x300',
+          uri:
+            item.urlToImage || 'https://placehold.co/600x300/png?text=No+Image',
         }}
         style={styles.image}
       />
@@ -51,9 +52,7 @@ const ItemNews = ({
         </Text>
 
         <View style={styles.footer}>
-          <Text style={styles.publishedAt}>
-            {item.publishedAt?.split('T')[0]}
-          </Text>
+          <Text style={styles.publishedAt}>{timeAgo(item.publishedAt)}</Text>
         </View>
       </View>
     </Pressable>

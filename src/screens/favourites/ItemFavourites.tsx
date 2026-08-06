@@ -3,10 +3,12 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { HeartIcon as HeartSolid } from 'react-native-heroicons/solid';
 import { ItemFavouriteProps } from '../../types';
 import { useTheme } from '../../theme/useTheme';
+import { timeAgo } from '../../utils/timeAgo';
 
 const ItemFavourites = ({ item, styles, onRemove }: ItemFavouriteProps) => {
   const { theme } = useTheme();
-
+  console.log(item.publishedAt);
+  console.log(timeAgo(item.publishedAt));
   return (
     <Pressable style={styles.card}>
       <Image
@@ -34,7 +36,7 @@ const ItemFavourites = ({ item, styles, onRemove }: ItemFavouriteProps) => {
         </Text>
 
         <View style={styles.footer}>
-          <Text style={styles.date}>{item.publishedAt?.split('T')[0]}</Text>
+          <Text style={styles.publishedAt}>{timeAgo(item.publishedAt)}</Text>
         </View>
       </View>
     </Pressable>

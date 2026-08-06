@@ -16,6 +16,8 @@ type Props = {
 };
 
 const BreakingNews = ({ breakingNews, navigation, styles }: Props) => {
+  console.log('Breaking News:', breakingNews);
+
   if (breakingNews.length === 0) return null;
 
   return (
