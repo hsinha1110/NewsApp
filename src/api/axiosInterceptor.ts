@@ -3,7 +3,7 @@ import { API_BASE_URL } from '../config/url';
 import Config from 'react-native-config';
 
 const NEWS_API_KEY = Config.NEWS_API_KEY;
-
+console.log('API KEY =>', NEWS_API_KEY);
 const axiosInterceptor = axios.create({
   baseURL: API_BASE_URL,
   timeout: 15000,
@@ -16,7 +16,7 @@ axiosInterceptor.interceptors.request.use(
   config => {
     config.params = {
       ...(config.params || {}),
-      apiKey: NEWS_API_KEY, 
+      apiKey: NEWS_API_KEY,
     };
 
     console.log(

@@ -60,7 +60,7 @@ const getStyles = (theme: any) =>
     button: {
       marginTop: verticalScale(30),
       backgroundColor: theme.primary,
-      height: verticalScale(50),
+      height: verticalScale(40),
       borderRadius: moderateScale(12),
       justifyContent: 'center',
       alignItems: 'center',
