@@ -4,12 +4,11 @@ A modern and responsive news application built with React Native and TypeScript.
 
 The app allows users to browse the latest news, explore different categories, search for articles, and read complete news details through a clean and user-friendly mobile interface.
 
-# App Demo
+## 📱 App Demo
+
 https://github.com/user-attachments/assets/97767642-7743-49b0-aaf7-53537be9a54e
 
-
-
-## 📱 Features
+## ✨ Features
 
 - 📰 Latest news
 - 🔥 Trending news
@@ -29,7 +28,7 @@ https://github.com/user-attachments/assets/97767642-7743-49b0-aaf7-53537be9a54e
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
 - React Native
 - TypeScript
