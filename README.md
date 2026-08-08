@@ -61,6 +61,7 @@ The API provides:
 
 ## 📂 Project Structure
 
+<pre>
 NewsApp/
 │
 ├── src/
@@ -89,3 +90,4 @@ NewsApp/
 ├── App.tsx
 ├── package.json
 └── README.md
+</pre>
